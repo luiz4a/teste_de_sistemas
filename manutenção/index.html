@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <base href="/" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Login - Cadastro e Recuperação</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!-- Botão Novo Veículo no topo, só aparece na página de veículos -->
+<button id="btnNovoVeiculo" class="add-vehicle-btn" style="position: fixed; top: 32px; right: 40px; z-index: 1000; display:none;">+ Novo Veículo</button>
+
+<!-- Login Page -->
+<div class="container" id="loginPage">
+  <h1>Bem-vindo</h1>
+  <p class="subtitle">Faça login para continuar</p>
+  
+  <form id="loginForm">
+    <div class="form-group">
+      <input type="email" placeholder="Email" required>
+    </div>
+    <div class="form-group">
+      <input type="password" placeholder="Senha" required>
+    </div>
+    <button type="submit">Entrar</button>
+  </form>
+  
+  <div class="links">
+    <a href="javascript:void(0)" onclick="showPage('forgotPasswordPage')">Esqueceu sua senha?</a>
+    <a href="javascript:void(0)" onclick="showPage('registerPage')">Cadastre-se</a>
+  </div>
+</div>
+
+<!-- Home Page -->
+<div class="container" id="homePage" style="display: none;">
+  <h1 class="home-title" style="margin-bottom: 0;">Bem-vindo ao sistema de veículos</h1>
+  <p class="subtitle">Acesse o cadastro ou visualize os veículos cadastrados</p>
+  <div class="welcome-actions" style="margin-top: 32px; display: flex; gap: 24px; justify-content: center;">
+  <button onclick="showPage('vehicleListPage')" class="welcome-btn">Ver Veículos</button>
+  <button onclick="showPage('vehicleFormPage')" class="welcome-btn">Cadastrar Veículo</button>
+  </div>
+  <div style="margin-top: 24px; text-align: right;">
+    <button onclick="showPage('loginPage')" class="logout-btn">Sair</button>
+  </div>
+</div>
+
+<!-- Página de listagem de veículos -->
+<div class="container" id="vehicleListPage" style="display: none;">
+  <h1 class="home-title">Veículos cadastrados</h1>
+  <div id="vehicleCards" class="vehicle-cards"></div>
+  <div style="margin-top: 24px; text-align: right;">
+    <button onclick="showPage('homePage')" class="logout-btn">Voltar</button>
+  </div>
+</div>
+
+<!-- Página de cadastro de veículos -->
+<div class="container" id="vehicleFormPage" style="display: none;">
+  <h1 class="home-title">Cadastro de Veículo</h1>
+  <form id="vehicleForm" class="vehicle-form" style="margin-bottom: 24px;">
+    <div class="form-group">
+      <input type="text" id="marca" placeholder="Marca" required>
+    </div>
+    <div class="form-group">
+      <input type="text" id="modelo" placeholder="Modelo" required>
+    </div>
+    <div class="form-group">
+      <input type="text" id="placa" placeholder="Placa" required maxlength="7">
+    </div>
+    <div class="form-group">
+      <input type="number" id="ano" placeholder="Ano" required min="1900" max="2099">
+    </div>
+    <div class="form-group">
+      <input type="url" id="foto" placeholder="Link da foto do carro (URL)" required>
+    </div>
+    <button type="submit">Cadastrar Veículo</button>
+    <div class="success-message" id="vehicleSuccess" style="display:none;">Veículo cadastrado com sucesso!</div>
+  </form>
+  <div style="margin-top: 24px; text-align: right;">
+    <button onclick="showPage('homePage')" class="logout-btn">Voltar</button>
+  </div>
+</div>
+</div>
+<!-- Forgot Password Page -->
+<div class="container" id="forgotPasswordPage" style="display: none;">
+  <h1>Recuperar Senha</h1>
+  <p class="subtitle">Informe seu email para receber as instruções de recuperação</p>
+  
+  <form id="forgotPasswordForm">
+    <div class="form-group">
+      <input type="email" id="recoveryEmail" placeholder="Digite seu email" required>
+      <div class="error-message" id="recoveryEmailError">Email inválido</div>
+    </div>
+    
+    <button type="submit">Enviar instruções</button>
+    <div class="success-message" id="recoverySuccess">
+      Email de recuperação enviado com sucesso!
+    </div>
+  </form>
+  
+  <div class="links">
+    <a href="javascript:void(0)" onclick="showPage('loginPage')">Voltar ao login</a>
+  </div>
+</div>
+
+<!-- Register Page -->
+<div class="container" id="registerPage" style="display: none;">
+  <h1>Cadastre-se</h1>
+  <p class="subtitle">Preencha os dados para criar sua conta</p>
+  
+  <form id="registerForm">
+    <div class="form-group">
+      <input type="text" id="fullName" placeholder="Nome completo" required>
+      <div class="error-message" id="nameError">Nome deve ter ao menos 3 caracteres</div>
+    </div>
+    
+    <div class="form-group">
+      <input type="email" id="email" placeholder="Email" required>
+      <div class="error-message" id="emailError">Email inválido</div>
+    </div>
+    
+    <div class="form-group">
+      <input type="password" id="password" placeholder="Senha" required>
+      <div class="password-requirements">
+        <ul>
+          <li id="lengthCheck">Mínimo de 8 caracteres</li>
+          <li id="upperCheck">Uma letra maiúscula</li>
+          <li id="numberCheck">Um número</li>
+          <li id="specialCheck">Um caractere especial</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <input type="password" id="confirmPassword" placeholder="Confirme a senha" required>
+      <div class="error-message" id="passwordError">As senhas não coincidem</div>
+    </div>
+    
+    <button type="submit">Criar conta</button>
+    <div class="success-message" id="registerSuccess">
+      Conta criada com sucesso!
+    </div>
+  </form>
+  
+  <div class="links">
+    <a href="javascript:void(0)" onclick="showPage('loginPage')">Já tem uma conta? Faça login</a>
+  </div>
+</div>
+<script src="js/script.js"></script>
